@@ -1,0 +1,93 @@
+{
+    "global": {
+        "admin": {
+            "basePort": 30010,
+            "host.S": "localhost"
+        },
+        "qdata": {
+            "basePort": 30110,
+            "host.S": "localhost"
+        }
+    },
+    "admin": {
+        "process": {
+            "bus": {
+                "lib": "randomSeed,setPort,bus.server,berror.client,berror_test1",
+                "arg": {
+                    "setPort": {
+                        "port.q": "%basePort% + 1"
+                    }
+                }
+            },
+            "server": {
+                "lib": "randomSeed,setPort,bus.client,berror.server,berror_test",
+                "arg": {
+                    "setPort": {
+                        "port.q": "%basePort% + 2"
+                    }
+                }
+            },
+            "client1": {
+                "lib": "randomSeed,setPort,bus.client,berror.client,berror_test1",
+                "arg": {
+                    "setPort": {
+                        "port.q": "%basePort% + 3"
+                    }
+                }
+            }
+        },
+        "schema":{
+            "dontcare":{
+                "column": "time,sym,pid,used,heap,peak,wmax,mmap,mphy,syms,symw",
+                "tipe": "psjjjjjjjjj",
+                "rattr": "sg*********",
+                "hattr": "Sp*********",
+                "tick.S": "default",
+                "rdb.S": "default",
+                "hdb.S": "default",
+                "replay.S": "default"
+            }
+        }
+    },
+    "qdata": {
+        "process": {
+            "bus": {
+                "lib": "randomSeed,setPort,bus.server,berror.client,berror_test1",
+                "arg": {
+                    "setPort": {
+                        "port.q": "%basePort% + 2"
+                    }
+                }
+            },
+            "client1": {
+                "lib": "randomSeed,setPort,bus.client,berror.client,berror_test1",
+                "arg": {
+                    "setPort": {
+                        "port.q": "%basePort% + 3"
+                    }
+                }
+            },
+            "client2": {
+                "lib": "randomSeed,setPort,bus.client,berror.client,berror_test1",
+                "arg": {
+                    "setPort": {
+                        "port.q": "%basePort% + 4"
+                    }
+                }
+            }
+        },
+        "schema":{
+            "dontcare1":{
+                "column": "time,sym,pid,used,heap,peak,wmax,mmap,mphy,syms,symw",
+                "tipe": "psjjjjjjjjj",
+                "rattr": "sg*********",
+                "hattr": "Sp*********",
+                "tick.S": "default",
+                "rdb.S": "default",
+                "hdb.S": "default",
+                "replay.S": "default"                
+            }
+        }
+
+    }
+}

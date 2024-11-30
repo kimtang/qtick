@@ -1,0 +1,92 @@
+{
+    "global": {
+        "admin": {
+            "basePort": 30020,
+            "host.S": "localhost"
+        },
+        "qdata": {
+            "basePort": 31020,
+            "host.S": "localhost"
+        }
+    },
+    "admin": {
+        "process": {
+            "bus": {
+                "lib": "randomSeed,setPort,bus.server,berror.client,heartbeat.client",
+                "arg": {
+                    "setPort": {
+                        "port.q": "%basePort% + 1"
+                    }
+                }
+            },
+            "tick": {
+                "lib": "randomSeed,setPort,bus.client,berror.server,tick.stream,tick.hft,tick.legacy,heartbeat.server",
+                "arg": {
+                    "setPort": {
+                        "port.q": "%basePort% + 3"
+                    }
+                }
+            },
+            "rdb": {
+                "lib": "randomSeed,setPort,bus.client,berror.client,tick,tick.sub,heartbeat.client",
+                "arg": {
+                    "setPort": {
+                        "port.q": "%basePort% + 5"
+                    }
+                }
+            }
+        },
+        "schema": {
+            "heartbeat": {
+                "column": "time,sym,pid,used,heap,peak,wmax,mmap,mphy,syms,symw",
+                "tipe": "psjjjjjjjjj",
+                "rattr": "sg*********",
+                "hattr": "Sp*********",
+                "tick.S": "default",
+                "rdb.S": "default",
+                "hdb.S": "default",
+                "replay.S": "default"
+            },
+            "beforeExecution": {
+                "column": "time,uid,etime,guid,user,hdl,host,arg",
+                "tipe": "pspgsi**",
+                "rattr": "sg******",
+                "hattr": "Sp******",
+                "tick.S": "default",
+                "rdb.S": "default",
+                "hdb.S": "default",
+                "addTime": true
+            },
+            "afterExecution": {
+                "column": "time,uid,ftime,guid,error",
+                "tipe": "pspgs",
+                "rattr": "sg***",
+                "hattr": "Sp***",
+                "tick.S": "default",
+                "rdb.S": "default",
+                "hdb.S": "default",
+                "addTime": true
+            },
+            "berror": {
+                "column": "time,uid,action,mode,time,etime,seq,eseq,result,arg,error",
+                "tipe": "psssppjj**s",
+                "rattr": "sg*********",
+                "hattr": "Sp*********",
+                "tick.S": "default",
+                "rdb.S": "default",
+                "hdb.S": "default",
+                "addTime": true
+            },
+            "trade": {
+                "column": "time,sym,prx,qty",
+                "tipe": "psfi",
+                "rattr": "sg**",
+                "hattr": "Sp**",
+                "tick.S": "default",
+                "rdb.S": "default",
+                "hdb.S": "default",
+                "addTime": false
+            }
+        }
+    }
+}

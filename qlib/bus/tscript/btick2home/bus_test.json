@@ -1,0 +1,21 @@
+{
+	"example":{
+		"dependsOn":{
+			"repository":{"dontcare":{"path":"pathtorepository" } },
+			"config":{ "dontcare1":{"path": "home"} }
+		}
+	},	
+	"dependsOn":{
+		"repository":{
+			"qtick":{"path":"../../../"},
+			"bus_test":{"path":"."}
+		},
+		"config":{"default":{"path":"home" }}
+	},
+	"pm2":{
+		"default":{
+			"repo.S":"bus_test",
+			"plant.S":"bus_test"
+		}
+	}
+}
