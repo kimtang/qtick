@@ -2,6 +2,7 @@
 .qtx.testSuite[`test.qtick.randomSeed;"test randomSeed"]
   .qtx.repo[`qtick]
   .qtx.lib[`randomSeed]
+  .qtx.file[`001]    
   .qtx.testCase[`arg.injection1;"argument injection"][
     .qtx.shouldEq["description";0;{[a]a}]
     .qtx.should["description";{.qtx.out[`c`d!3 4;1b]}]

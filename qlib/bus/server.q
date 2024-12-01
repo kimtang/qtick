@@ -1,5 +1,5 @@
 
-.import.require`hopen
+.import.require`hopen;
 
 d)lib qtick.bus.server 
  Library for working with the lib bus
@@ -15,18 +15,22 @@ d)fnc bus.bus.server.summary
  Give a summary of this function
  q) .bus.server.summary[]
 
-.bt.add[`.hopen.init;`.bus.server.init]{
- .bus.con:1!select uid,host,port,user:`,passwd:count[i]#enlist"",mode:`server,hdl:0ni,topic:count[i]#enlist 1#`all from .self.process where `bus.server in/:lib,not env=.self.proc`env;
- .bus.con:.bus.con,1!select uid,host,port,user:`,passwd:count[i]#enlist"",mode:`client,hdl:0ni,topic:count[i]#enlist 0#` from .self.process where `bus.client in/:lib,env=.self.proc`env;
- .bus.con:.bus.con,1!select uid,host,port,user:`,passwd:count[i]#enlist"",mode:`client,hdl:0i,topic:count[i]#enlist `all from enlist .self.proc;
- .hopen.add@' 0!select from .bus.con where mode=`server,null hdl;
+.bt.add[`.hopen.init;`.bus.server.init]{[process;proc0]
+ .bus.proc:proc0;
+ .bus.con:1!select uid,host,port,user:`,passwd:count[i]#enlist"",mode:`server,hdl:0ni,topic:count[i]#enlist 1#`all from process where `bus.server in/:lib,not env=proc0`env;
+ .bus.con:.bus.con,1!select uid,host,port,user:`,passwd:count[i]#enlist"",mode:`client,hdl:0ni,topic:count[i]#enlist 0#` from process where `bus.client in/:lib,env=proc0`env;
+ .bus.con:.bus.con,1!select uid,host,port,user:`,passwd:count[i]#enlist"",mode:`client,hdl:0i,topic:count[i]#enlist `all from enlist proc0;
  } 
+
+.bt.add[`.bus.server.init;`.bus.server.init.con]{
+ .hopen.add@' 0!select from .bus.con where mode=`server,null hdl;	
+ }
 
 
 .bt.addIff[`.bus.server.con.success]{[result] 0<count select from result where uid in (exec uid from .bus.con) }
 .bt.add[`.hopen.success;`.bus.server.con.success]{[result]
  `.bus.con upsert 1!r:select uid,hdl from result where uid in (exec uid from .bus.con);
- { x (".bt.action";`.bus.server.con.handshake;.self.proc,.bt.md[`topic]1#`all) }@'neg(r`hdl)
+ { x (".bt.action";`.bus.server.con.handshake;.bus.proc,.bt.md[`topic]1#`all) }@'neg(r`hdl)
  }
 
 .bt.addIff[`.bus.server.con.handshake]{[uid0] 0<count select from .bus.con where uid = uid0 }

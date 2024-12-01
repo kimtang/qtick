@@ -1,7 +1,7 @@
-args:.Q.def[`name`port!("tscript/01.q";9082);].Q.opt .z.x
+args:.Q.def[`name`port!("tscript/01_test.q";9082);].Q.opt .z.x
 
 / remove this line when using in production
-/ tscript/01.q:localhost:9082::
+/ tscript/01_test.q:localhost:9082::
 { if[not x=0; @[x;"exit 0";()]]; ;@[value;"\\p 9082";()];;@[value;"\\p 9082";()] } @[hopen;`:localhost:9082;0];
 
 

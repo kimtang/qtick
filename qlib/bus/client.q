@@ -1,5 +1,5 @@
 
-.import.require`hopen
+.import.require`hopen;
 
 d)lib qtick.bus.client 
  Library for working with the lib bus
@@ -38,13 +38,6 @@ d)lib qtick.bus.client
  }
 
 .bt.add[`;`.bus.sendTweet]{[allData] `.bus.tcon insert enlist `topic`payload#allData;}
-
-
 .bt.add[`;`.bus.receiveTweet]{[tcon] { .bt.action[x`topic] x }@'0!`topic xgroup tcon;}
 
 /
-
-x:first 0!`topic xgroup tcon
-
-x`topic
-x

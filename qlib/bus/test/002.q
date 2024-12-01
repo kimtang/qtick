@@ -1,5 +1,5 @@
 
-.import.module`bus.server;
+.import.module`bus.client;
 
 .bt.rem[`.action.init]`.hopen.init;
 .bt.rem[`.hopen.init]`.bus.server.init;
@@ -8,10 +8,10 @@
 .bt.rem[`.bus.server.init]`.bus.server.init.con;
 .bt.rem[`.bus.server.con.handshake]`.hopen.handshake;
 
-.qtx.testSuite[`test.qtick.bus.server;"test bus"]
+.qtx.testSuite[`test.qtick.bus.client;"test bus"]
   .qtx.repo[`qtick]
   .qtx.lib[`bus]
-  .qtx.file[`001]  
+  .qtx.file[`002]
   .qtx.testCase[`.bus.server.init;"argument injection"][
     .qtx.before[{
       .bt.action:.bt.actionThrow;
@@ -43,5 +43,7 @@
   .qtx.nil;
 
 /
+
+.bt.repository[`sym`mode!`.bus.client.init`behaviour]
 
 (::).qtx.main[filter]()!()

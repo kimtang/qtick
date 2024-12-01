@@ -115,28 +115,3 @@ f) select from trade
 
 
 /
-
-(::)r:.bt.action[`.pm2.action] update proc:`replay,cmd:`start from .self.arg
-process
-
-
-(::).f.proc:`admin.rdb
-f) {count get x}@'tables[]
-
-(::).f.proc:`admin.replay
-f) 
-
-
-trade:enlist `time`sym`prx`qty!(.z.P;`hsi;19002f;200i)
-
-(::)trade:.Q.en[`:dontcare]trade
-
-`:dontcare/2021.01.01/trade/ set trade
-`:dontcare/2021.01.02/trade/ set trade
-
-`:dontcare/1/trade/ set trade
-`:dontcare/2/trade/ set trade
-
-\l .
-
-select from trade where int = 1 
