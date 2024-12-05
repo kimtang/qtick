@@ -94,6 +94,16 @@
                 "hdb.S": "default",
                 "addTime": true
             },
+            "reference": {
+                "column": "time,sym,prx,qty",
+                "tipe": "psfi",
+                "rattr": "sg**",
+                "hattr": "Sp**",
+                "tick.S": "default",
+                "rdb.S": "default",
+                "hdb.S": "default",
+                "addTime": false
+            },
             "trade": {
                 "column": "time,sym,prx,qty",
                 "tipe": "psfi",

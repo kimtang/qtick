@@ -26,7 +26,6 @@ args:.Q.def[`name`port!("tick/tscript/02.q";9084);].Q.opt .z.x
 if[not ()~key `:data1;"b" "rm -rf data1"];
 select by repo from .import.summary[] / ensure that all repo are present
 
-
 (::).self.arg:(.pm2.config`default),``env`cmd`proc!({};`;`info;`all)
 (::).self.arg:update jfile:`$.bt.print[":%",string[ .self.arg`repo],"%/plant/%plant%.json"] (.self.arg,.import.repository.con) from .self.arg
 (::).self.arg[`jobj]: .j.k "c"$read1 .self.arg`jfile
@@ -35,7 +34,7 @@ select by repo from .import.summary[] / ensure that all repo are present
 (::).self.process:.plant.process .self.arg
 (::).self.schema:.plant.schema .self.arg
 (::)r:.bt.action[`.pm2.action] .self.arg
-(::)r:.bt.action[`.pm2.action] update cmd:`sbl from .self.arg
+/ (::)r:.bt.action[`.pm2.action] update cmd:`sbl from .self.arg
 (::)process:r`process 
 
 .remote.add allProc:select uid:luid,host,port,user:`,passwd:count[i]#enlist"" from process

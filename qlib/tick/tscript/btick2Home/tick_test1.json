@@ -7,7 +7,7 @@
 	},	
 	"dependsOn":{
 		"repository":{
-			"qtick":{"path":"../../../"},
+			"qtick":{"path":"../../.."},
 			"tick_test":{"path":"."}
 		},
 		"config":{"default":{"path":"home" }}
