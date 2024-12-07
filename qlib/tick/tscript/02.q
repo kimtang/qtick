@@ -15,24 +15,54 @@ args:.Q.def[`name`port!("tick/tscript/02.q";9084);].Q.opt .z.x
 `btick2Home setenv "./btick2Home"
 \l qlib.q
 
-.import.require`plant`pm2`qtx`remote`repository
+.import.require`plant`pm2`qtx`remote`repository`dbmaint
 .import.init[]
 .bt.action[`.import.init]()!()
+
 
 / b) mkdir plant
 / b) touch plant/tick_test.json
 / .repository.createLib[`tick_test;`tick_test1]
 
-if[not ()~key `:data1;"b" "rm -rf data1"];
-select by repo from .import.summary[] / ensure that all repo are present
+.dbmaint.rm"data1"
+
+all `btick2`qtick in distinct exec repo from .import.summary[] / ensure that all repo are present
 
 (::).self.arg:(.pm2.config`default),``env`cmd`proc!({};`;`info;`all)
 (::).self.arg:update jfile:`$.bt.print[":%",string[ .self.arg`repo],"%/plant/%plant%.json"] (.self.arg,.import.repository.con) from .self.arg
 (::).self.arg[`jobj]: .j.k "c"$read1 .self.arg`jfile
 (::).self.arg[`root]:`$.import.repository.con .self.arg`repo
-(::).self.dataDir:.plant.dataDir .self.arg `jobj
+(::).self.dataDir:.plant.dataDir jobj:.self.arg `jobj
 (::).self.process:.plant.process .self.arg
+
 (::).self.schema:.plant.schema .self.arg
+
+(::)arg0:.self.arg
+.plant.schema:{[arg0]
+ global:.json.k (jobj:arg0`jobj)`global;
+ env0:raze{[global;x] (1#x`k)!enlist .json.k .j.k .bt.print[ .j.j x`v] global x`k }[global;]@' {([]k:key x;v:value x)} `global _ jobj;
+ (::)allEnv:.util.ctablen[3] env0
+ schemas:update sym:{ x[0],2_x }@'sym from select from allEnv where sym[;1]=`schema;
+
+schemas
+
+@'[schemas;`v;]{x}
+{(),x[`v]}@'schemas
+
+ schemas:`env`tname`col`cval!/:schemas[`sym]{x,enlist y}'schemas[`v];
+ schemas:update cval:`${"," vs x}@'cval from schemas where col=`column;
+ default:select env,tname,col:`ocolumn,cval:cval from schemas where col=`column;
+ default:default,select env,tname,col:`rattr,cval:{count[x]#"*"}@'cval from schemas where col=`column;
+ default:default,select env,tname,col:`hattr,cval:{count[x]#"*"}@'cval from schemas where col=`column;
+ default:default,select env,tname,col:`upd,cval:count[i]#enlist (::) from schemas where col=`column;
+ default:default,select env,tname,col:`addTime,cval:0b from schemas where col=`column;
+ default:default,ungroup select env,tname,col:count[i]#enlist `tick`rdb`hdb`replay,cval:count[i]#enlist `default from schemas where col=`column;
+ schemas:select from (default,schemas) where ({x=last x};i) fby ([]env;tname;col);
+ schemas:.tidyq.dcast[schemas;"env,tname";"%col% ~~ cval"];
+ fnc:{[mode;env;x] @[x;;:;.Q.dd[env]mode] where `default=x:(),x};
+ update tick:fnc'[`tick;env;tick],rdb:fnc'[`rdb;env;rdb],hdb:fnc'[`hdb;env;hdb],replay:fnc'[`replay;env;replay] from schemas
+ }
+
 (::)r:.bt.action[`.pm2.action] .self.arg
 / (::)r:.bt.action[`.pm2.action] update cmd:`sbl from .self.arg
 (::)process:r`process 

@@ -55,64 +55,36 @@
         },
         "schema": {
             "heartbeat": {
-                "column": "time,sym,pid,used,heap,peak,wmax,mmap,mphy,syms,symw",
-                "tipe": "psjjjjjjjjj",
-                "rattr": "sg*********",
-                "hattr": "Sp*********",
+                "column": "date,time,sym,pid,used,heap,peak,wmax,mmap,mphy,syms,symw",
+                "tipe": "dpsjjjjjjjjj",
+                "rattr": "*sg*********",
+                "storage":{"type.S":"partition","mode.S":"auto","partitionCol.S":"date","partAttrCol.S":"sym","sortCol.S":"time"},
                 "tick.S": "default",
                 "rdb.S": "default",
                 "hdb.S": "default",
+                "cdb.S":"default",
                 "replay.S": "default"
             },
             "beforeExecution": {
-                "column": "time,uid,etime,guid,user,hdl,host,arg",
-                "tipe": "pspgsi**",
-                "rattr": "sg******",
-                "hattr": "Sp******",
-                "tick.S": "default",
-                "rdb.S": "default",
-                "hdb.S": "default",
-                "addTime": true
+                "column": "date,time,sym,etime,guid,user,hdl,host,arg",
+                "tipe": "dpspgsi**"
             },
             "afterExecution": {
-                "column": "time,uid,ftime,guid,error",
-                "tipe": "pspgs",
-                "rattr": "sg***",
-                "hattr": "Sp***",
-                "tick.S": "default",
-                "rdb.S": "default",
-                "hdb.S": "default",
-                "addTime": true
+                "column": "date,time,sym,ftime,guid,error",
+                "tipe": "dpspgs"
             },
             "berror": {
-                "column": "time,uid,action,mode,time,etime,seq,eseq,result,arg,error",
-                "tipe": "psssppjj**s",
-                "rattr": "sg*********",
-                "hattr": "Sp*********",
-                "tick.S": "default",
-                "rdb.S": "default",
-                "hdb.S": "default",
-                "addTime": true
+                "column": "date,time,sym,action,mode,time,etime,seq,eseq,result,arg,error",
+                "tipe": "dpsssppjj**s"
             },
             "reference": {
-                "column": "time,sym,prx,qty",
-                "tipe": "psfi",
-                "rattr": "sg**",
-                "hattr": "Sp**",
-                "tick.S": "default",
-                "rdb.S": "default",
-                "hdb.S": "default",
-                "addTime": false
+                "column": "date,time,sym,prx,qty",
+                "tipe": "dpsfi",
+                "storage.S":"splay"
             },
             "trade": {
-                "column": "time,sym,prx,qty",
-                "tipe": "psfi",
-                "rattr": "sg**",
-                "hattr": "Sp**",
-                "tick.S": "default",
-                "rdb.S": "default",
-                "hdb.S": "default",
-                "addTime": false
+                "column": "date,time,sym,prx,qty",
+                "tipe": "dpsfi"
             }
         }
     }
